@@ -1,0 +1,27 @@
+<%- include('./partials/header.ejs') %>
+    <h1>Edit Watchlist</h1>
+    <form action="/smarttrading/watchlists/<%= watchlist.id %>?_method=PUT" method="POST">
+        Name: <input type="text" name="name" value="<%= watchlist.name %>"> <br/>
+        Description: <input type="text" name="description" value="<%= watchlist.description %>"> <br/>
+        List of stocks:<br/>
+        <ul id="stocklist"> 
+        </ul>
+        <input type="submit" value="Update Watchlist">
+    </form>
+    <script type="text/javascript">
+        const pathArray = ['AAPL','AFRM','AMZN','CRM','FB','MDB','MSFT','NMRK','TSLA','UPST']
+
+        const ulList = document.querySelector('#stocklist')
+
+        for(let i = 0; i < pathArray.length; i++){   
+            let element = document.createElement('li')
+            element.innerHTML = pathArray[i]
+            let input = document.createElement('input')
+            input.setAttribute("type", "checkbox");
+            input.setAttribute("name", `${pathArray[i]}`);
+            ulList.appendChild(element)
+            ulList.appendChild(input)
+        }
+    </script>
+</body>
+</html>

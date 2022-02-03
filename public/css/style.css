@@ -1,0 +1,95 @@
+body{
+    background-image: url('https://images.freeimages.com/images/large-previews/a3b/website-rays-background-pattern-1637863.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+ul {
+    list-style-type: none;
+}
+
+canvas{
+    width:70% !important;
+    height:50% !important;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    padding: 20;
+}
+
+nav {
+    flex: 1;
+    text-align: right;
+}
+
+nav ul {
+    display: inline-block;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: red
+}
+
+p {
+    color: black;
+}
+
+.container {
+    max-width: 1300px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.column {
+    flex-basis: 50%;
+    min-width: 300px;
+}
+
+.column h1{
+    font-size: 50px;
+    line-height: 60px;
+    margin: 25px 0;
+}
+
+.stocktickers {
+    display: inline-table;
+    position: relative;
+    color: #0087ca;
+    margin: 25px;
+}
+
+.stocktickers:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #0087ca;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+.stocktickers:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+

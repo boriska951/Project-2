@@ -1,0 +1,17 @@
+<%- include('./partials/header.ejs') %>
+    <h1>Add New Watchlist</h1>
+    <form action="/smarttrading/watchlists" method="POST">
+        Name: <input type="text" name="name"> <br/>
+        Description: <input type="text" name="description"> <br/>
+        List of stocks:<br/>
+        <ul id="stocklist">    
+        </ul>
+        <p>On Average, S&P 500 Index gives 10% return to its investors annully. If you would like to check how much money you will make from now until your desired date, please fill out fields below.</p>
+        When would you like to start investing? (Year) <input type="number" name="startyear"> <br/>
+        When would you like to benefit from your investments? (Year) <input type="number" name="endyear"> <br/>
+        How much are you willing to add to your investment account on Monthly basis? (Amount) <input type="number" name="monthlyinvestment"> <br/>
+        <input type="submit" value="Create Watchlist">
+    </form>
+    <script type="text/javascript" src="../js/addWatchlist.js"></script>
+</body>
+</html>

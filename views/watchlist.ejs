@@ -1,0 +1,17 @@
+<%- include('./partials/header.ejs') %>
+    <h1>Watchlists Page</h1>
+    <ul>
+        <p>(Please note you need to register and sign in in order to Create your own personalized Watchlist and Delete it as well)</p>
+        <% for (let i = 0; i < watchlist.length; i++){ %>
+            <li>
+                <a href="/smarttrading/watchlists/<%= watchlist[i].id %>"><%= watchlist[i].name %></a>
+                <%= watchlist[i].description %>
+                <form action="/smarttrading/<%= watchlist[i].id %>?_method=DELETE" method="POST">
+                    <input type="submit" value="Delete">
+                </form>
+            </li>
+        <% } %>       
+    </ul>
+    <a href="/smarttrading/new">Create a New Watchlist</a>
+</body>
+</html>

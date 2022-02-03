@@ -1,0 +1,18 @@
+<%- include('./partials/header.ejs') %>
+    <h1>Watchlist Show Page</h1>
+
+    <h2>This is the show page for <%= watchlist.name %></h2>
+
+    <p><%= watchlist.description %></p></br>
+    <p> Based on your input as of <%= watchlist.period[watchlist.period.length-1] %> your investments will be worth $<%= watchlist.amount[watchlist.amount.length-1] %>.</p>
+    <h3>Stocks you are currently following:</h3>
+    <ul>
+        <% for(let i = 0; i < watchlist.stocklist.length; i++) { %>
+            <li>
+                <a href="/smarttrading/<%= watchlist.stocklist[i] %>/"><%= watchlist.stocklist[i] %></a>
+            </li>
+        <% } %>
+    </ul>
+    <a href="/smarttrading/<%= watchlist.id %>/edit">Edit</a>  
+</body>
+</html>

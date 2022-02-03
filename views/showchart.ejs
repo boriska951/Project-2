@@ -1,0 +1,113 @@
+<%- include('./partials/header.ejs') %>
+<canvas id="chart" width="400" height="400"></canvas>
+<script type="text/javascript">
+
+const pathArray = ['AAPL.csv','AFRM.csv','AMZN.csv','CRM.csv','FB.csv','MDB.csv','MSFT.csv','NMRK.csv','TSLA.csv','UPST.csv']
+
+let thisHref = location.href.split("/")
+
+let selectedStock = thisHref[thisHref.length-2]+".csv"
+
+const ulList = document.querySelector('#stocklist')
+
+function destroyStockList(){
+    let listOfStocks = document.querySelectorAll('li')
+    for (let i = 0; i < listOfStocks.length; i++){
+        listOfStocks[i].remove()
+    }
+}
+
+chartIt()
+
+async function chartIt(){
+    const data = await getData()
+    const ctx = document.getElementById('chart').getContext('2d');
+
+    let myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.xAxis,
+            datasets: [{
+                label: `Historical Stock Prices ${selectedStock.slice(0,-4)}`,
+                fill: false,
+                data: data.yAxis,
+                backgroundColor: 
+                    'rgba(255, 99, 132, 0.2)'
+                ,
+                borderColor: 
+                    'rgba(255, 99, 132, 1)'
+                ,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    ticks: {
+                        callback: function(value, index, values) {
+                            return '$' + value;
+                        },
+                        font: {
+                            size: 20
+                        }
+                    }
+                },
+                x: {
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 20,
+                        font: {
+                            size: 20
+                        }
+                    }
+                }
+            },
+            plugins: {
+                zoom: {
+                    zoom: {
+                        drag: {
+                            enabled: true
+                        },
+                        wheel: {
+                            enabled: true
+                        },
+                        mode: 'x'
+                    }
+                },
+                legend: {
+                    labels: {
+                        font: {
+                            size: 40
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+async function getData() {
+    const xAxis = []
+    const yAxis = []
+
+    const response = await fetch(`/Historical/${selectedStock}`);
+    const table = await response.text();
+
+    const rows = table.split('\n').slice(1)
+    const rowsLength = rows.length
+    console.log(rowsLength)
+    const tickerName = rows[0].split(';')[1]
+    console.log(tickerName)
+    rows.forEach(row =>{
+        const column = row.split(';')
+        const stockTicker = column[1]
+        const closingDate = column[2]
+        xAxis.push(closingDate)
+        const closingPrice = parseFloat(column[3].replace('$','').replace(',','.'))
+        yAxis.push(closingPrice)
+    })
+    return {xAxis,yAxis}
+}
+</script>
+</body>
+</html>
